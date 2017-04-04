@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.graphics.drawable.GradientDrawable;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * An {@link EarthquakeAdapter} knows how to create a list item layout for each earthquake
  * in the data source (a list of {@link Earthquake} objects).
- *
+ * <p>
  * These list item layouts will be provided to an adapter view like ListView
  * to be displayed to the user.
  */
@@ -31,7 +32,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     /**
      * Constructs a new {@link EarthquakeAdapter}.
      *
-     * @param context of the app
+     * @param context     of the app
      * @param earthquakes is the list of earthquakes, which is the data source of the adapter
      */
     public EarthquakeAdapter(Context context, List<Earthquake> earthquakes) {
@@ -65,6 +66,16 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Get the original location string from the Earthquake object,
         // which can be in the format of "5km N of Cairo, Egypt" or "Pacific-Antarctic Ridge".
         String originalLocation = currentEarthquake.getPlace();
+
+        // Set the proper background color on the magnitude circle.
+        // Fetch the background from the TextView, which is a GradientDrawable.
+        GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
+
+        // Get the appropriate background color based on the current earthquake magnitude
+        int magnitudeColor = getMagnitudeColor(currentEarthquake.getMag());
+
+        // Set the color on the magnitude circle
+        magnitudeCircle.setColor(magnitudeColor);
 
         // If the original location string (i.e. "5km N of Cairo, Egypt") contains
         // a primary location (Cairo, Egypt) and a location offset (5km N of that city)
