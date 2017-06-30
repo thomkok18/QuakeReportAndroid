@@ -139,7 +139,7 @@ public final class QueryUtils {
         }
         List<Earthquake> earthquakes = new ArrayList<>();
         try {
-// Create a JSONObject from the JSON response string
+            // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(earthquakeJSON);
             JSONArray earthquakeArray = baseJsonResponse.getJSONArray("features");
 
